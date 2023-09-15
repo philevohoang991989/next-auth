@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 type typeForm = {
   name: string;
@@ -29,6 +30,7 @@ const FormSchema = z
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -59,6 +61,11 @@ export default function RegisterPage() {
     if(reponse.ok){
         router.push('/login')
     }else{
+      toast({
+        title: "Error",
+        description: "Registration failed",
+        variant:'destructive'
+      })
         console.log('Registration failed');
     }
   };

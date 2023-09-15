@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useToast } from "@/components/ui/use-toast"
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -22,6 +23,7 @@ const FormSchema = z.object({
 });
 export default function LoginPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -43,11 +45,11 @@ export default function LoginPage() {
     });
     console.log({ signInData });
     if (signInData?.error) {
-      // toast({
-      //   title: "Error",
-      //   description: "Oops! Something when wrong!",
-      // })
-      console.log(signInData.error);
+      toast({
+        title: "Error",
+        description: "Oops! Something when wrong!",
+        variant:'destructive'
+      })
     } else {
       router.refresh();
       router.push("/admin");
