@@ -25,7 +25,7 @@ export const middleware= async(request: NextRequest)=> {
 	}
 
 	// Redirect to login if (1) user doesn't have a token AND (2) is requesting protected route
-	if (!token && pathname !== '/login') {
+	if (!token && pathname !== '/login' && pathname !== '/register') {
 		return NextResponse.redirect(new URL('/login', request.url))
 	}
 
